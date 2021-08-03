@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## What is MERN-Movies-with-Auth-JWT?
 This is application about movies. You can get information about movies and their comments. there is CRUD interface for logged user. There are register and login mechanisms and JWT authentication.
 
@@ -42,3 +43,6 @@ https://user-images.githubusercontent.com/43199382/127380434-7ab3cf6d-44d2-4450-
 ![image2](https://user-images.githubusercontent.com/43199382/127380441-b28707dc-1c0a-488d-942c-6d7847b35e66.jpg)
 ![image3](https://user-images.githubusercontent.com/43199382/127380445-85b1ebe0-12fa-4d37-8b76-cde08548e7df.jpg)
 
+=======
+# MERN-forms-auth-jwt
+>>>>>>> 6fd669a6306c5cbde9e782111e903ccf7e4e2c54
