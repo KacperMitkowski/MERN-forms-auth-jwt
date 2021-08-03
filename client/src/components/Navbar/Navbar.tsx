@@ -41,7 +41,7 @@ const Navbar = () => {
 
     return (
         <div className={classes.root} style={{ position: "absolute", left: "0", top: "0" }}>
-            <AppBar color="secondary">
+            <AppBar color="primary">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title} align="center">
                         <Link to="/" style={{textDecoration: "none", color: "#fff"}}>

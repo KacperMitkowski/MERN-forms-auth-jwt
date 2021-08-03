@@ -13,7 +13,8 @@ export default makeStyles((theme: Theme) =>
       padding: '20px',
       borderRadius: '4px',
       height: '75vh',
-      width: '100%'
+      width: '100%',
+      marginTop: '20px'
   },
   }),
 );

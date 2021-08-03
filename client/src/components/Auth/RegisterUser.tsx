@@ -14,7 +14,6 @@ const initialState = { firstName: '', lastName: '', email: '', password: '', con
 
 const RegisterUser = () => {
     const { error } = useSelector((state: any) => state.error);
-    // const error = null;
     const [form, setForm] = useState(initialState);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -68,16 +67,16 @@ const RegisterUser = () => {
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={() => setShowPassword(!showPassword)} />
                         <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={() => setShowPassword(!showPassword)} />
                     </Grid>
-                    <Button type="submit" fullWidth variant="contained" color="secondary" className={classes.submit}>Sign Up</Button>
+                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign Up</Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Button onClick={() => history.push('/loginUser')} color="secondary">Already have an account? Sign in</Button>
+                            <Button onClick={() => history.push('/loginUser')} color="primary">Already have an account? Sign in</Button>
                         </Grid>
                     </Grid>
                 </form>
             </Paper>
             <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="warning" className={classes.alert}>{error}</Alert>
+                <Alert onClose={handleClose} severity="info" className={classes.alert}>{error}</Alert>
             </Snackbar>
         </Container>
     );

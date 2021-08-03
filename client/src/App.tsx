@@ -8,6 +8,7 @@ import LoginUser from './components/Auth/LoginUser';
 import Unauthorized from './components/Unauthorized/Unauthorized';
 import RegisterUser from './components/Auth/RegisterUser';
 import Forms from './components/Forms/Forms';
+import AddForm from './components/Forms/AddForm/AddForm';
 
 const theme = createTheme({
   typography: {
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/" exact component={Forms} />
             <Route path="/loginUser" exact component={LoginUser} />
             <Route path="/register" exact component={RegisterUser} />
+            <Route path="/addForm" exact component={AddForm} />
             <Route path="/unauthorized" exact component={Unauthorized} />
           </Switch>
       </ThemeProvider>

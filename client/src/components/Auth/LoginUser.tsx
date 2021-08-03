@@ -74,11 +74,11 @@ const LoginUser = () => {
             <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
             <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={() => setShowPassword(!showPassword)} />
           </Grid>
-          <Button type="submit" fullWidth variant="contained" color="secondary" className={classes.submit}>Sign In</Button>
+          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign In</Button>
           <GoogleLogin
             clientId="564033717568-bu2nr1l9h31bhk9bff4pqbenvvoju3oq.apps.googleusercontent.com"
             render={(renderProps) => (
-              <Button className={classes.googleButton} color="secondary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<GoogleIcon />} variant="contained">
+              <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<GoogleIcon />} variant="contained">
                 Google Sign In
               </Button>
             )}
@@ -88,13 +88,13 @@ const LoginUser = () => {
           />
           <Grid container justify="flex-end">
             <Grid item>
-              <Button onClick={() => history.push('/register')} color="secondary">Don't have an account? Sign Up</Button>
+              <Button onClick={() => history.push('/register')} color="primary">Don't have an account? Sign Up</Button>
             </Grid>
           </Grid>
         </form>
       </Paper>
       <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="warning" className={classes.alert}>Invalid Credentials </Alert>
+        <Alert onClose={handleClose} severity="info" className={classes.alert}>Invalid Credentials </Alert>
       </Snackbar>
     </Container>
   );
