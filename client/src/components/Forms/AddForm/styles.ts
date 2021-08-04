@@ -28,5 +28,31 @@ export default makeStyles((theme: Theme) =>
       height: '39vh',
       marginTop: '1rem'
     },
+    underline: {
+      '&::after': {
+        border: '2px solid #3f51b5',
+        width: '300px',
+        marginLeft: '30px'
+      },
+      '&::before': {
+        borderBottom: '2px solid #3f51b5',
+        width: '300px',
+        marginLeft: '30px'
+      }
+    },
+    singleChoiceOption: {
+      fontSize: '13px',
+      color: '#3f51b5',
+      '&:hover': {
+        cursor: "pointer"
+      }
+    },
+
+    singleChoiceOptionMargin: {
+      marginLeft: '140px',
+      '&:hover': {
+        cursor: "pointer"
+      }
+    }
   }),
 );
