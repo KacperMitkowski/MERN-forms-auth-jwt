@@ -1,29 +1,26 @@
-import { FormControl, FormControlLabel, FormLabel, Grid, InputAdornment, Radio, RadioGroup, TextField } from '@material-ui/core';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import React, { useState } from 'react';
+import React from 'react';
+import ShortText from './ShortText';
+import LongText from './LongText';
 import SingleChoice from './SingleChoice';
+import MultipleChoice from './MultipleChoice'; 
+import LinearScale from './LinearScale';
 
 const QuestionSection = ({ questionType }) => {
-    const [value, setValue] = useState('female');
-    const [singleChoiceOptionCounter, setSingleChoiceOptionCounter] = useState(1);
-
     switch (questionType) {
         case 'shortText':
-            return <Grid item xs={5}>
-                <TextField placeholder="Tekst krótkiej odpowiedzi" fullWidth />
-            </Grid>
+            return <ShortText />
         case 'longText':
-            return <Grid item xs={10}>
-                <TextField placeholder="Tekst długiej odpowiedzi" fullWidth />
-            </Grid>
-        case 'singleChoice':
-            return <SingleChoice singleChoiceOptionCounter={singleChoiceOptionCounter} setSingleChoiceOptionCounter={setSingleChoiceOptionCounter} />
+            return <LongText />
+        case 'singleChoice': 
+            // return <SingleChoice />
         case 'multipleChoice':
-            return <div>4</div>
+            // return <MultipleChoice />
         case 'linearScale':
-            return <div>5</div>
+            return <LinearScale />
         default:
             return <></>
+
+            
     }
 }
 
