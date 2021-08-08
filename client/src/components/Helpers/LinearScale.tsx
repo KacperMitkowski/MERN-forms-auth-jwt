@@ -1,19 +1,21 @@
 import { FormControl, FormControlLabel, Grid, InputAdornment, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import useStyles from './styles';
+import { useEffect } from 'react';
+import useStyles from '../Forms/AddForm/styles'; 
 
-const LinearScale = () => {
+const LinearScale = ({ handleLinearScale ,index }) => {
     const classes = useStyles();
     const [min, setMin] = useState(0);
     const [max, setMax] = useState(5);
-    const [minText, setMinText] = useState('');
-    const [maxText, setMaxText] = useState('');
+    const [minEtiquette, setMinEtiquette] = useState('');
+    const [maxEtiquette, setMaxEtiquette] = useState('');
 
     const getScale = () => {
         const options = [];
         for (let i = min; i <= max; i++) {
             options.push(
                 <FormControlLabel
+                    key={i}
                     control={<Radio color="primary" />}
                     label={i}
                     labelPlacement="top"
@@ -22,6 +24,16 @@ const LinearScale = () => {
         }
         return options;
     }
+
+    useEffect(() => {
+        const details = {
+            min,
+            max,
+            minEtiquette : minEtiquette.trim(),
+            maxEtiquette : maxEtiquette.trim()
+        }
+        handleLinearScale(details, index);
+    }, [min, minEtiquette, max, maxEtiquette])
 
     return (
         <>
@@ -56,7 +68,7 @@ const LinearScale = () => {
                 <div style={{ marginTop: "20px" }}>
                     <TextField
                         placeholder="Etykieta (opcjonalna)"
-                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setMinText(event.target.value)}
+                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setMinEtiquette(event.target.value)}
                         InputProps={{
                             classes: { underline: classes.underlineLinear },
                             startAdornment: (
@@ -70,7 +82,7 @@ const LinearScale = () => {
                 <div style={{ marginTop: "20px" }}>
                     <TextField
                         placeholder="Etykieta (opcjonalna)"
-                        onChange={(event : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setMaxText(event.target.value)}
+                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setMaxEtiquette(event.target.value)}
                         InputProps={{
                             classes: { underline: classes.underlineLinear },
                             startAdornment: (
@@ -82,12 +94,12 @@ const LinearScale = () => {
                     />
                 </div>
             </Grid>
-            <Grid item xs={12} style={{textAlign: "center"}}> 
+            <Grid item xs={12} style={{ textAlign: "center" }}>
                 <FormControl component="fieldset">
                     <RadioGroup row aria-label="position" name="position" defaultValue="top">
-                        <Typography className={classes.typographyLinear} noWrap>{minText}</Typography>
+                        <Typography className={classes.typographyLinear} noWrap>{minEtiquette}</Typography>
                         {getScale().map(option => option)}
-                        <Typography className={classes.typographyLinear} noWrap>{maxText}</Typography>
+                        <Typography className={classes.typographyLinear} noWrap>{maxEtiquette}</Typography>
                     </RadioGroup>
                 </FormControl>
             </Grid>

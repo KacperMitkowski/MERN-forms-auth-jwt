@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Grid, CircularProgress, Grow, Paper, Button } from '@material-ui/core';
-import Movie from './Form/Form';
-import useStyles from './styles';
+import useStyles from './styles'; 
 import { useHistory } from 'react-router';
 import { Alert } from '@material-ui/lab';
 
@@ -11,7 +10,10 @@ const Forms = () => {
     const { isLoading } = useSelector((state: any) => state.forms);
     const history = useHistory();
     const classes = useStyles();
+    const profile = localStorage.getItem('profile')!;
+    const [user, setUser] = useState(JSON.parse(profile));
 
+    
     if (!isLoading) return (
         <Grid container spacing={3}>
             <Alert severity="error" style={{ width: "100%" }}>No forms found</Alert>
@@ -20,7 +22,11 @@ const Forms = () => {
     return (
         isLoading ?
             <Grid container spacing={3} style={{marginTop: "100px"}}>
+                {user?.result &&
                 <Button variant="contained" color="primary" fullWidth onClick={() => history.push("/addForm")}>Add form</Button>
+                }
+
+
                 <Paper elevation={6} className={classes.loadingPaper}>
                     <CircularProgress size="7em" color="primary" value={100} />
                 </Paper>

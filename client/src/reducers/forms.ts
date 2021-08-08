@@ -6,7 +6,14 @@ export default (state = { isLoading: true, forms: [] }, action: any) => {
             return { ...state, isLoading: true };
         case END_LOADING:
             return { ...state, isLoading: false };
+        case FETCH_ALL:
+            return {
+                ...state,
+                forms: action.payload.data,
+            };
+        case CREATE:
+            return { ...state, forms: [...state.forms, action.payload] };
         default:
             return state;
     }
-}
+} 

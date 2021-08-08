@@ -6,14 +6,13 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
-import QuestionSection from './QuestionSection';
-import LinearScale from './LinearScale';
-import MultipleChoice from './MultipleChoice';
-import SingleChoice from './SingleChoice';
-import LongText from './LongText';
-import ShortText from './ShortText';
+import LinearScale from '../../Helpers/LinearScale';
+import MultipleChoice from '../../Helpers/MultipleChoice';
+import SingleChoice from '../../Helpers/SingleChoice';
+import LongText from '../../Helpers/LongText';
+import ShortText from '../../Helpers/ShortText';
 
-const Section = ({ section, index, removeSection, handleChange, handleSwitchChange, handleOptions, handleOtherOption, sectionNumber, handleDrag, handleDrop }) => {
+const Section = ({ section, index, removeSection, handleChange, handleSwitchChange, handleOptions, handleOtherOption, handleLinearScale, sectionNumber, handleDrag, handleDrop }) => {
     const classes = useStyles();
 
     return (
@@ -80,7 +79,7 @@ const Section = ({ section, index, removeSection, handleChange, handleSwitchChan
                                             section.questionType === 'multipleChoice' ? 
                                                 <MultipleChoice handleOptions={handleOptions} handleOtherOption={handleOtherOption} index={index} />
                                                 :
-                                                <LinearScale />
+                                                <LinearScale handleLinearScale={handleLinearScale} index={index} />
                                         )
                                 )
                         )

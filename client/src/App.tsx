@@ -25,7 +25,8 @@ const App = () => {
       <ThemeProvider theme={theme}>
           <Navbar />
           <Switch>
-            <Route path="/" exact component={Forms} />
+            <Route path="/" exact component={() => <Redirect to="/forms" />} />
+            <Route path="/forms" exact component={Forms} />
             <Route path="/loginUser" exact component={LoginUser} />
             <Route path="/register" exact component={RegisterUser} />
             <Route path="/addForm" exact component={AddForm} />
