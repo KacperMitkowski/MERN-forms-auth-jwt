@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup, Container, Grid, Paper, Snackbar, TextField, Tooltip, Typography } from '@material-ui/core';
+import { Button, ButtonGroup, CircularProgress, Container, Grid, Paper, Snackbar, TextField, Tooltip, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import Section from './Section';
@@ -8,30 +8,45 @@ import SectionModel from '../../../models/section';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../../constants/actionTypes';
 import Alert from '../../Helpers/Alert';
-import { useHistory } from 'react-router-dom';
-import { createForm } from '../../../actions/forms';
+import { useHistory, useParams } from 'react-router-dom';
+import { getForm, updateForm } from '../../../actions/forms';
 import SingleMultiDetails from '../../../models/singleMultiDetails';
 import LinearDetails from '../../../models/linearDetails';
 
-export const AddForm = () => {
+export const EditForm = () => {
+    const { id } = useParams<any>();
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
+    const { form, isLoading } = useSelector((state: any) => state.forms);
     const { error } = useSelector((state: any) => state.error);
     const [showError, setShowError] = useState(false);
     const [dragId, setDragId] = useState();
     const [sectionsNumber, setSectionsNumber] = useState(1);
-    const [formTitle, setFormTitle] = useState('');
+    const [formTitle, setFormTitle] = useState(form?.title);
     const [formDescription, setFormDescription] = useState('');
     const profile = localStorage.getItem('profile')!;
     const [user, setUser] = useState(JSON.parse(profile));
-    const [sections, setSections] = useState([new SectionModel(`Section-${sectionsNumber}`, sectionsNumber, false, "", "shortText", new SingleMultiDetails(), new LinearDetails())]);
+    // const [sections, setSections] = useState([{ questionText: "", questionType: "shortText", id: `Section-${sectionsNumber}`, order: sectionsNumber, required: false, options: [], otherOption: false, linearScaleDetails: Object }]);
+    const [sections, setSections] = useState([]);
 
     useEffect(() => {
         if (error) {
             setShowError(true);
         }
     }, [error]);
+
+    useEffect(() => {
+        dispatch(getForm(id));
+    }, [id])
+
+    useEffect(() => {
+        if (form) {
+            setFormTitle(form.title);
+            setFormDescription(form.description);
+            setSections(form.sections);
+        }
+    }, [form])
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -56,6 +71,7 @@ export const AddForm = () => {
 
     const handleOptions = (options, index) => {
         let newSections = [...sections];
+        console.log(form);
         newSections[index].singleMultiDetails.options = options;
         setSections(newSections);
     }
@@ -113,6 +129,7 @@ export const AddForm = () => {
         form.title = formTitle.trim();
         form.description = formDescription.trim();
         form.userId = user.result._id;
+        form._id = id;
 
         for (let section of sections) {
             const sectionObj = new SectionModel(section.id, section.order, section.required, section.questionText, section.questionType, section.singleMultiDetails, section.linearDetails);
@@ -125,8 +142,9 @@ export const AddForm = () => {
         }
 
         console.log(form);
-        dispatch(createForm(form, history));
+        dispatch(updateForm(form, history));
     }
+
 
     const validateForm = (form: FormModel) => {
         if (form.title.trim().length === 0) {
@@ -151,6 +169,15 @@ export const AddForm = () => {
         return { ok: true }
     }
 
+    if (isLoading) {
+        return (
+            <Container component="main" style={{ marginTop: "100px" }}>
+                <Paper elevation={6} className={classes.loadingPaper} style={{ marginTop: "80px" }}>
+                    <CircularProgress size="7em" color="secondary" />
+                </Paper>
+            </Container>
+        );
+    }
 
     return (
         <Container component="main" style={{ marginTop: "100px" }}>
@@ -158,7 +185,7 @@ export const AddForm = () => {
                 <Paper className={classes.paper} elevation={6}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={10} alignItems="center">
-                            <Typography component="h1" variant="h5" align="center" gutterBottom>Add Form</Typography>
+                            <Typography component="h1" variant="h5" align="center" gutterBottom>Edit Form</Typography>
                             <TextField onChange={(e) => { setFormTitle(e.target.value) }} value={formTitle} placeholder="Formularz bez nazwy" fullWidth variant="filled" inputProps={{ style: { fontSize: 40 } }} style={{ fontSize: "30px", marginBottom: "30px" }} />
                             <TextField onChange={(e) => { setFormDescription(e.target.value) }} value={formDescription} placeholder="Opis formularza" fullWidth style={{ marginBottom: "30px" }} />
                         </Grid>
@@ -198,4 +225,4 @@ export const AddForm = () => {
     )
 }
 
-export default AddForm;
+export default EditForm;

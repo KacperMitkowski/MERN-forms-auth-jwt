@@ -15,6 +15,9 @@ export default makeStyles((theme: Theme) =>
       height: '75vh',
       width: '100%',
       marginTop: '20px'
-  },
+    },
+    title: {
+      fontSize: 14,
+    },
   }),
 );

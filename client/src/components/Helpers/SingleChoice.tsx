@@ -7,10 +7,31 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { useEffect } from 'react';
 
 
-const SingleChoice = ({ handleOptions, handleOtherOption, index }) => {
+const SingleChoice = ({ handleOptions, handleOtherOption, index, section = null }) => {
     const classes = useStyles();
-    const [options, setOptions] = useState([{ startIcon: <RadioButtonUncheckedIcon />, placeholder: "Opcja 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
+    const [options, setOptions] = useState([]);
     const [customOptionVisible, setCustomOptionVisible] = useState(false);
+
+    useEffect(() => {
+        if (section) {
+            console.log(section);
+            const sectionOptions = [];
+            for (let i = 0; i < section.singleMultiDetails.options.length; i++) {
+                const obj = {
+                    startIcon: <RadioButtonUncheckedIcon />,
+                    placeholder: `Opcja ${i + 1}`,
+                    deleteIcon: <HighlightOffIcon />,
+                    value: section.singleMultiDetails.options[i]
+                }
+                sectionOptions.push(obj);
+            }
+            setOptions(sectionOptions);
+            setCustomOptionVisible(section.singleMultiDetails.otherOption);
+        }
+        else {
+            setOptions([{ startIcon: <RadioButtonUncheckedIcon />, placeholder: "Opcja 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
+        }
+    }, [section]);
 
     const deleteOption = (i) => {
         let newOptions = [...options];
@@ -30,11 +51,6 @@ const SingleChoice = ({ handleOptions, handleOtherOption, index }) => {
         const values = newOptions.map(option => option.value.trim());
         handleOptions(values, index);
     }
-
-    useEffect(() => {
-        const values = options.map(option => option.value.trim());
-        handleOptions(values, index);
-    }, [options]);
 
     return (
         <Grid item xs={10}>

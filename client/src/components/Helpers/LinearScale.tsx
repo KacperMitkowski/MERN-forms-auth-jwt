@@ -29,8 +29,8 @@ const LinearScale = ({ handleLinearScale ,index }) => {
         const details = {
             min,
             max,
-            minEtiquette : minEtiquette.trim(),
-            maxEtiquette : maxEtiquette.trim()
+            minText : minEtiquette.trim(),
+            maxText : maxEtiquette.trim()
         }
         handleLinearScale(details, index);
     }, [min, minEtiquette, max, maxEtiquette])

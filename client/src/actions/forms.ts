@@ -1,5 +1,30 @@
-import { CREATE, END_LOADING, ERROR, START_LOADING } from "../constants/actionTypes";
+import { CREATE, END_LOADING, ERROR, FETCH_ALL, FETCH_FORM, START_LOADING, UPDATE, UPDATE_SUCCESSFUL } from "../constants/actionTypes";
 import * as api from '../api';
+
+export const getForms = () => async (dispatch) => {
+    try {
+        dispatch({ type: START_LOADING });
+        const { data: { data } } = await api.fetchForms();
+        dispatch({ type: FETCH_ALL, payload: { data } });
+        dispatch({ type: END_LOADING });
+      }
+      catch (error) {
+        console.log(error);
+      }
+}
+
+export const getForm = (id: any) => async (dispatch: any) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.fetchForm(id);
+
+    dispatch({ type: FETCH_FORM, payload: { form: data } });
+    dispatch({ type: END_LOADING });
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
 
 export const createForm = (form, history) => async (dispatch) => {
     try {
@@ -19,4 +44,24 @@ export const createForm = (form, history) => async (dispatch) => {
     catch (error) {
         console.log(error);
       }
+}
+
+export const updateForm = (form, history) => async (dispatch: any) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.updateForm(form._id, form);
+    console.log(data);
+
+    if (data?.error) {
+      dispatch({ type: ERROR, data });
+      return history.push('/editForm');
+    }
+
+    dispatch({ type: UPDATE, payload: data });
+    dispatch({ type: UPDATE_SUCCESSFUL, payload: true});
+    dispatch({ type: END_LOADING });
+    return history.push(`/editForm/${data._id}`);
+  } catch (error) {
+    console.log(error);
+  }
 }

@@ -1,4 +1,4 @@
-import { START_LOADING, END_LOADING, FETCH_ALL, FETCH_MOVIE, CREATE, FETCH_BY_SEARCH, UPDATE, DELETE, DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL, COMMENT } from '../constants/actionTypes';
+import { START_LOADING, END_LOADING, FETCH_ALL, FETCH_FORM, CREATE, UPDATE, DELETE, DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../constants/actionTypes';
 
 export default (state = { isLoading: true, forms: [] }, action: any) => {
     switch (action.type) {
@@ -11,9 +11,11 @@ export default (state = { isLoading: true, forms: [] }, action: any) => {
                 ...state,
                 forms: action.payload.data,
             };
+        case FETCH_FORM:
+            return { ...state, form: action.payload.form };
         case CREATE:
             return { ...state, forms: [...state.forms, action.payload] };
         default:
             return state;
     }
-} 
+}
