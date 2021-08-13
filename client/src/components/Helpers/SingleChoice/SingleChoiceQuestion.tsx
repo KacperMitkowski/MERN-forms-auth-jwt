@@ -14,12 +14,11 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
 
     useEffect(() => {
         if (section) {
-            console.log(section);
             const sectionOptions = [];
             for (let i = 0; i < section.singleMultiDetails.options.length; i++) {
                 const obj = {
                     startIcon: <RadioButtonUncheckedIcon />,
-                    placeholder: `Opcja ${i + 1}`,
+                    placeholder: `Option ${i + 1}`,
                     deleteIcon: <HighlightOffIcon />,
                     value: section.singleMultiDetails.options[i]
                 }
@@ -30,7 +29,7 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
         }
         else {
             alert("TEST");
-            setOptions([{ startIcon: <RadioButtonUncheckedIcon />, placeholder: "Opcja 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
+            setOptions([{ startIcon: <RadioButtonUncheckedIcon />, placeholder: "Option 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
         }
     }, [section]);
 
@@ -44,7 +43,7 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
     }
 
     const addRadioOption = (counter) => {
-        setOptions([...options, { startIcon: <RadioButtonUncheckedIcon />, placeholder: `Opcja ${counter}`, deleteIcon: <HighlightOffIcon />, value: "" }]);
+        setOptions([...options, { startIcon: <RadioButtonUncheckedIcon />, placeholder: `Option ${counter}`, deleteIcon: <HighlightOffIcon />, value: "" }]);
     }
 
     const handleChange = (i, e) => {
@@ -73,7 +72,7 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
                                     </InputAdornment>
                                 ),
                                 endAdornment: options.length >= 2 && (
-                                    <Tooltip title="Usuń" placement="right">
+                                    <Tooltip title="Delete option" placement="right">
                                         <IconButton className={classes.singleChoiceOptionMargin} onClick={() => deleteOption(index)}>
                                             {element.deleteIcon}
                                         </IconButton>
@@ -97,7 +96,7 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
                             </InputAdornment>
                         ),
                         endAdornment: (
-                            <Tooltip title="Usuń" placement="right">
+                            <Tooltip title="Delete option" placement="right">
                                 <IconButton className={classes.singleChoiceOptionMargin} onClick={() => setCustomOptionVisible(false)}>
                                     <HighlightOffIcon />
                                 </IconButton>
@@ -108,7 +107,7 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
             }
 
             <div className={classes.singleChoiceButtonsContainer}>
-                <Button variant="contained" color="primary" onClick={() => addRadioOption(options.length + 1)}>Dodaj opcję</Button>
+                <Button variant="contained" color="primary" onClick={() => addRadioOption(options.length + 1)}>Add option</Button>
                 {
                     !customOptionVisible &&
                     <>
@@ -116,7 +115,7 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
                         <Button variant="contained" color="primary" onClick={() => {
                             setCustomOptionVisible(true);
                             handleOtherOption(true, index);
-                        }}>Dodaj opcję "inne"</Button>
+                        }}>Add option "other"</Button>
                     </>
                 }
             </div>

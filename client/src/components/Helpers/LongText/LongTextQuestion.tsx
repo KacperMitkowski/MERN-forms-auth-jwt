@@ -4,7 +4,7 @@ import React from 'react';
 const LongTextQuestion = () => {
     return (
         <Grid item xs={10}>
-            <TextField placeholder="Tekst długiej odpowiedzi" fullWidth disabled />
+            <TextField placeholder="Long text" fullWidth disabled />
         </Grid>
     )
 }

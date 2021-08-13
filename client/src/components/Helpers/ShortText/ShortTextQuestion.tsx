@@ -4,7 +4,7 @@ import React from 'react';
 const ShortTextQuestion = () => {
     return (
         <Grid item xs={5}>
-            <TextField placeholder="Tekst krótkiej odpowiedzi" fullWidth disabled />
+            <TextField placeholder="Short text" fullWidth disabled />
         </Grid>
     )
 }

@@ -6,11 +6,12 @@ import { useHistory } from 'react-router';
 import { getForms } from '../../actions/forms';
 import FormModel from '../../models/form';
 import Form from './Form';
-import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
+import { ADD_ANSWER_SUCCESSFUL, DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../Helpers/Alert';
 
 const Forms = () => {
     const { forms, isLoading, updateSuccessful, deleteSuccessful } = useSelector((state: any) => state.forms);
+    const { addAnswerSuccessful } = useSelector((state: any) => state.answers);
     const history = useHistory();
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Forms = () => {
 
     const [showEditSuccess, setShowEditSuccess] = useState(false);
     const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+    const [showAddAnswerSuccess, setShowAddAnswerSuccess] = useState(false);
     const [user, setUser] = useState(JSON.parse(profile));
 
     useEffect(() => {
@@ -31,6 +33,13 @@ const Forms = () => {
             setShowDeleteSuccess(deleteSuccessful);
         }
     }, [deleteSuccessful]);
+    
+
+    useEffect(() => {
+        if (addAnswerSuccessful) {
+            setShowAddAnswerSuccess(addAnswerSuccessful);
+        }
+    }, [addAnswerSuccessful]);
 
     useEffect(() => {
         dispatch(getForms());
@@ -52,6 +61,15 @@ const Forms = () => {
 
         dispatch({ type: DELETE_SUCCESSFUL, payload: false });
         setShowDeleteSuccess(false);
+    }
+
+    const handleCloseAddAnswerSuccess = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        dispatch({ type: ADD_ANSWER_SUCCESSFUL, payload: false });
+        setShowAddAnswerSuccess(false);
     }
 
     return (
@@ -79,6 +97,9 @@ const Forms = () => {
             </Snackbar>
             <Snackbar open={showDeleteSuccess} autoHideDuration={6000} onClose={handleCloseDeleteSuccess}>
                 <Alert onClose={handleCloseDeleteSuccess} severity="success">Delete successful</Alert>
+            </Snackbar>
+            <Snackbar open={showAddAnswerSuccess} autoHideDuration={6000} onClose={handleCloseAddAnswerSuccess}>
+                <Alert onClose={handleCloseAddAnswerSuccess} severity="success">Adding answer successful</Alert>
             </Snackbar>
         </Container>
     )

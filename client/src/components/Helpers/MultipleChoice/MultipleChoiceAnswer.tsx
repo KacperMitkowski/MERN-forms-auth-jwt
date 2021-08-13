@@ -27,7 +27,7 @@ const MultipleChoiceAnswer = ({ section, handleMultipleOptions, index }) => {
     return (
         <Grid item xs={12}>
             <FormControl component="fieldset">
-                <FormLabel component="legend">Wybierz </FormLabel>
+                <FormLabel component="legend">Choose option</FormLabel>
                 <FormControl component="fieldset">
                     <FormGroup>
                         {
@@ -44,7 +44,7 @@ const MultipleChoiceAnswer = ({ section, handleMultipleOptions, index }) => {
                     </FormGroup>
                 </FormControl>
                 {section.singleMultiDetails.otherOption &&
-                    <TextField id="standard-required" label="Inna odpowiedź" value={options['otherOption']} name="otherOption" onChange={(event) => setOptions({ ...options, [event.target.name]: event.target.value })}/>
+                    <TextField id="standard-required" label="Other option" value={options['otherOption']} name="otherOption" onChange={(event) => setOptions({ ...options, [event.target.name]: event.target.value })}/>
                 }
             </FormControl>
         </Grid>

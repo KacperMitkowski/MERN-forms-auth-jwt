@@ -138,13 +138,12 @@ export const EditForm = () => {
             return dispatch({ type: ERROR, data: { error: formResult.error } });
         }
 
-        console.log(form);
         dispatch(updateForm(form, history));
     }
 
     const validateForm = (form: FormModel) => {
         if (form.title.trim().length === 0) {
-            return { ok: false, error: "No form title" };
+            return { ok: false, error: "No form name" };
         }
         if (form.description.trim().length === 0) {
             return { ok: false, error: "No form description" };
@@ -186,12 +185,12 @@ export const EditForm = () => {
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={10} alignItems="center">
                             <Typography component="h1" variant="h5" align="center" gutterBottom>Edit Form</Typography>
-                            <TextField onChange={(e) => { setFormTitle(e.target.value) }} value={formTitle} placeholder="Formularz bez nazwy" fullWidth variant="filled" inputProps={{ style: { fontSize: 40 } }} style={{ fontSize: "30px", marginBottom: "30px" }} />
-                            <TextField onChange={(e) => { setFormDescription(e.target.value) }} value={formDescription} placeholder="Opis formularza" fullWidth style={{ marginBottom: "30px" }} />
+                            <TextField onChange={(e) => { setFormTitle(e.target.value) }} value={formTitle} placeholder="Form name" fullWidth variant="filled" inputProps={{ style: { fontSize: 40 } }} style={{ fontSize: "30px", marginBottom: "30px" }} />
+                            <TextField onChange={(e) => { setFormDescription(e.target.value) }} value={formDescription} placeholder="Form description" fullWidth style={{ marginBottom: "30px" }} />
                         </Grid>
                         <Grid item xs={12} sm={2} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                             <ButtonGroup orientation="vertical" variant="contained" color="primary">
-                                <Tooltip title="Dodaj pytanie" placement="right"><Button onClick={() => addSection()}><AddCircleOutlineOutlinedIcon /></Button></Tooltip>
+                                <Tooltip title="Add question" placement="bottom"><Button onClick={() => addSection()}><AddCircleOutlineOutlinedIcon /></Button></Tooltip>
                             </ButtonGroup>
                         </Grid>
                     </Grid>

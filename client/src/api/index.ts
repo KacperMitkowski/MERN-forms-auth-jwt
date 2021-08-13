@@ -15,7 +15,7 @@ API.interceptors.response.use(response => {
     return response;
  }, error => {
    if (error.response.status === 401) {
-        window.location.assign('/unauthorized');
+        window.location.assign('/loginUser');
    }
    else if(error.response.status === 500) {
        alert("Server error");
@@ -34,4 +34,5 @@ export const createForm = (form) => API.post('/forms', form);
 export const updateForm = (id, updatedForm) => API.patch(`/forms/${id}`, updatedForm);
 export const deleteForm = (id) => API.delete(`/forms/${id}`);
 
+export const getAnswers = (formId) => API.get(`/answers/${formId}`); 
 export const addAnswer = (formAnswer) => API.post(`/answers/${formAnswer.formId}`, { formAnswer });

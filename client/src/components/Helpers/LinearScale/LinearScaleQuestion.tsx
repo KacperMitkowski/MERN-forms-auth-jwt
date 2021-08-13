@@ -1,4 +1,4 @@
-import { FormControl, FormControlLabel, Grid, InputAdornment, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@material-ui/core';
+import { FormControl, FormControlLabel, Grid, InputAdornment, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import useStyles from '../../Forms/AddForm/styles';
@@ -11,7 +11,6 @@ const LinearScaleQuestion = ({ handleLinearScale, index, section = null }) => {
     const [maxEtiquette, setMaxEtiquette] = useState('');
 
     useEffect(() => {
-        console.log(section);
         if (section) {
             setMin(section.linearDetails.min);
             setMinEtiquette(section.linearDetails.minText);
@@ -99,7 +98,7 @@ const LinearScaleQuestion = ({ handleLinearScale, index, section = null }) => {
                     <TextField
                         value={minEtiquette}
                         name="minText"
-                        placeholder="Etykieta (opcjonalna)"
+                        placeholder="Etiquette (optional)"
                         onChange={e => handleChange(index, e)}
                         InputProps={{
                             classes: { underline: classes.underlineLinear },
@@ -115,7 +114,7 @@ const LinearScaleQuestion = ({ handleLinearScale, index, section = null }) => {
                     <TextField
                         value={maxEtiquette}
                         name="maxText"
-                        placeholder="Etykieta (opcjonalna)"
+                        placeholder="Etiquette (optional)"
                         onChange={e => handleChange(index, e)}
                         InputProps={{
                             classes: { underline: classes.underlineLinear },

@@ -48,7 +48,7 @@ const AnswerForm = () => {
         const answers = [];
         if(form) {
             for(let section of form.sections) {
-                const answer = new Answer(section.questionType, section.required) ;
+                const answer = new Answer(section.questionType, section.required, section.questionText) ;
                 answers.push(answer);
             }
             const newFormAnswer = new FormAnswer(form._id);
@@ -117,7 +117,6 @@ const AnswerForm = () => {
             return dispatch({ type: ERROR, data: { error: formResult.error } });
         }
 
-        console.log(formAnswer);
         dispatch(addAnswer(formAnswer, history));
     } 
 
@@ -165,10 +164,10 @@ const AnswerForm = () => {
                 <Paper className={classes.paper} elevation={6}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} alignItems="center">
-                            <Typography component="h1" variant="h5" align="center" gutterBottom>Odpowiedz</Typography>
-                            <Typography component="h1" variant="h6"><span style={{fontWeight: 300}}>Tytuł formularza: </span>{form.title}</Typography>
-                            <Typography gutterBottom component="h1" variant="h6"><span style={{fontWeight: 300}}>Opis formularza: </span>{form.description}</Typography>
-                            <TextField label="Twój nick *" value={nick} onChange={(e) => setNick(e.target.value)} />
+                            <Typography component="h1" variant="h5" align="center" gutterBottom>Add answer</Typography>
+                            <Typography component="h1" variant="h6"><span style={{fontWeight: 300}}>Form title: </span>{form.title}</Typography>
+                            <Typography gutterBottom component="h1" variant="h6"><span style={{fontWeight: 300}}>Form description: </span>{form.description}</Typography>
+                            <TextField label="Your nick *" value={nick} onChange={(e) => setNick(e.target.value)} />
                         </Grid>
                     </Grid>
                 </Paper>
@@ -177,7 +176,7 @@ const AnswerForm = () => {
                             <Paper key={index} className={classes.paper} elevation={6} style={{ marginTop: "10px" }}>
                                 <Grid container spacing={3}>
                                     <Grid item xs={12} sm={5}>
-                                        <Typography component="h1" variant="h6" gutterBottom noWrap><span style={{fontWeight: 300}}>Pytanie{section.required && '*'} :</span> {section.questionText}</Typography>
+                                        <Typography component="h1" variant="h6" gutterBottom noWrap><span style={{fontWeight: 300}}>Question{section.required && '*'} :</span> {section.questionText}</Typography>
                                     </Grid>
                                     {section.questionType === 'shortText' ?
                                             <ShortTextAnswer section={section} handleTextChange={handleTextChange} index={index} />
@@ -201,7 +200,7 @@ const AnswerForm = () => {
                         )
                     })
                 }
-                <Button variant="contained" color="primary" fullWidth type="submit">Zapisz odpowiedź</Button>
+                <Button variant="contained" color="primary" fullWidth type="submit">Save answer</Button>
             </form>
             <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="warning" className={classes.alert}>{error}</Alert>

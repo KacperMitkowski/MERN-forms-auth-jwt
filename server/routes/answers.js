@@ -1,9 +1,9 @@
 import express from "express";
-import auth from "../middlewares/auth.js";
-import { addAnswer } from "../controllers/answers.js";
+import { addAnswer, getAnswers } from "../controllers/answers.js";
 
 const router = express.Router();
 
-router.post("/:formId", auth, addAnswer);
+router.get("/:formId", getAnswers);
+router.post("/:formId", addAnswer);
 
 export default router;

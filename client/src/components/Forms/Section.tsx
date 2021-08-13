@@ -1,11 +1,8 @@
-import { Button, ButtonGroup, Divider, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Paper, Select, Switch, TextField, Tooltip } from '@material-ui/core';
 import React, { useState } from 'react';
+import { Button, ButtonGroup, Divider, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Paper, Select, Switch, TextField, Tooltip } from '@material-ui/core';
 import { QuestionHelper } from '../../constants/questionTypes';
 import useStyles from './AddForm/styles';
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 import LinearScaleQuestion from '../Helpers/LinearScale/LinearScaleQuestion';
 import MultipleChoiceQuestion from '../Helpers/MultipleChoice/MultipleChoiceQuestion';
 import SingleChoiceQuestion from '../Helpers/SingleChoice/SingleChoiceQuestion';
@@ -34,11 +31,11 @@ const Section = ({ section, index, removeSection, handleChange, handleRequired, 
         >
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={5}>
-                    <TextField placeholder="Pytanie" variant="filled" fullWidth value={section.questionText || ""} onChange={e => handleChange(index, e, 'questionText')} />
+                    <TextField placeholder="Question" variant="filled" fullWidth value={section.questionText || ""} onChange={e => handleChange(index, e, 'questionText')} />
                 </Grid>
                 <Grid item xs={12} sm={5}>
                     <FormControl fullWidth={true}>
-                        <InputLabel id="questionType">Typ pytania</InputLabel>
+                        <InputLabel id="questionType">Question type</InputLabel>
                         <Select
                             labelId="questionType"
                             value={section.questionType}
@@ -67,7 +64,7 @@ const Section = ({ section, index, removeSection, handleChange, handleRequired, 
                 {index &&
                     <Grid item xs={2} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <ButtonGroup orientation="vertical" variant="contained" color="primary">
-                            <Tooltip title="Usuń pytanie" placement="bottom"><Button onClick={() => removeSection(index)}><DeleteForeverOutlinedIcon /></Button></Tooltip>
+                            <Tooltip title="Delete question" placement="bottom"><Button onClick={() => removeSection(index)}><DeleteForeverOutlinedIcon /></Button></Tooltip>
                         </ButtonGroup>
                     </Grid>
                 }
@@ -104,7 +101,7 @@ const Section = ({ section, index, removeSection, handleChange, handleRequired, 
                                     handleRequired(section.required, index);
                                 }}
                                 control={<Switch color="primary" />}
-                                label="Wymagane"
+                                label="Required"
                                 labelPlacement="start"
                             />
                         </FormGroup>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useStyles from './styles';
-import { AppBar, Button, Toolbar, Typography, IconButton } from "@material-ui/core";
-import { Menu } from "@material-ui/icons";
+import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import formsIcon from '../../images/forms-icon.png';
 import { useDispatch } from 'react-redux';

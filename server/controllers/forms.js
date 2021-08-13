@@ -41,7 +41,6 @@ export const createForm = async (req, res) => {
         res.status(201).json(newForm);
 
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Something went wrong" });
     }
 }
@@ -55,7 +54,7 @@ export const updateForm = async (req, res) => {
         res.status(201).json(updatedForm);
     }
     catch (error) {
-        res.status(409).json({ message: error.message });
+        res.status(401).json({ message: error.message });
     }
 }
 
@@ -70,7 +69,6 @@ export const deleteForm = async (req, res) => {
         res.status(201).json({ message: "Movie deleted successfully." });
     }
     catch (error) {
-        console.log(error.message);
-        res.status(409).json({ message: error.message });
+        res.status(401).json({ message: error.message });
     }
 }

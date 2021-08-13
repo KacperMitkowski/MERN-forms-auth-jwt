@@ -6,6 +6,7 @@ const answerSchema = mongoose.Schema({
     multiOptions: { type: [String], default: [] },
     linearOption: {type: Number, default: -1},
     questionType: {type: String, required: true },
+    questionText: {type: String, required: true },
     required: {type: Boolean}
 });
 

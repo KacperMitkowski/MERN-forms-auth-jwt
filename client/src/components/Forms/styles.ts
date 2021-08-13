@@ -5,7 +5,7 @@ export default makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      height: '200px'
+      height: '220px'
     },
     loadingPaper: {
       display: 'flex',

@@ -53,7 +53,7 @@ export const updateForm = (form, history) => async (dispatch: any) => {
 
     if (data?.error) {
       dispatch({ type: ERROR, data });
-      return history.push('/editForm');
+      return history.push(`/editForm/${form._id}`);
     }
 
     dispatch({ type: UPDATE, payload: data });

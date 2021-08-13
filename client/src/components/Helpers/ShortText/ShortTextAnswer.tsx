@@ -4,7 +4,7 @@ import React from 'react';
 const ShortTextAnswer = ({ section, handleTextChange, index }) => {
     return (
         <Grid item xs={12}>
-            <TextField id="standard-required" label="Odpowiedź" onChange={(e) => handleTextChange(index, e)} />
+            <TextField id="standard-required" label="Answer" onChange={(e) => handleTextChange(index, e)} />
         </Grid>
     )
 }

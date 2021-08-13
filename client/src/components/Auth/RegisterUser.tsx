@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import { signup } from '../../actions/auth';
 import { ERROR } from '../../constants/actionTypes';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Input from './Input';
+import Input from '../Helpers/Input';
 import useStyles from './styles';
 import * as EmailValidator from 'email-validator';
 

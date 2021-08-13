@@ -73,7 +73,6 @@ export const AddForm = () => {
     }
 
     const addSection = () => {
-        // setSections([...sections, { questionText: "", questionType: "shortText", id: `Section-${sectionsNumber + 1}`, order: sectionsNumber + 1, required: false, options: [], otherOption: false, linearScaleDetails: Object }])
         setSections([...sections, new SectionModel(`Section-${sectionsNumber + 1}`, sectionsNumber + 1, false, "", "shortText", new SingleMultiDetails(), new LinearDetails())]);
         setSectionsNumber(sectionsNumber + 1);
     }
@@ -129,7 +128,7 @@ export const AddForm = () => {
 
     const validateForm = (form: FormModel) => {
         if (form.title.trim().length === 0) {
-            return { ok: false, error: "No form title" };
+            return { ok: false, error: "No form name" };
         }
         if (form.description.trim().length === 0) {
             return { ok: false, error: "No form description" };
@@ -162,12 +161,12 @@ export const AddForm = () => {
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={10} alignItems="center">
                             <Typography component="h1" variant="h5" align="center" gutterBottom>Add Form</Typography>
-                            <TextField onChange={(e) => { setFormTitle(e.target.value) }} value={formTitle} placeholder="Formularz bez nazwy" fullWidth variant="filled" inputProps={{ style: { fontSize: 40 } }} style={{ fontSize: "30px", marginBottom: "30px" }} />
-                            <TextField onChange={(e) => { setFormDescription(e.target.value) }} value={formDescription} placeholder="Opis formularza" fullWidth style={{ marginBottom: "30px" }} />
+                            <TextField onChange={(e) => { setFormTitle(e.target.value) }} value={formTitle} placeholder="Form name" fullWidth variant="filled" inputProps={{ style: { fontSize: 40 } }} style={{ fontSize: "30px", marginBottom: "30px" }} />
+                            <TextField onChange={(e) => { setFormDescription(e.target.value) }} value={formDescription} placeholder="Form description" fullWidth style={{ marginBottom: "30px" }} />
                         </Grid>
                         <Grid item xs={12} sm={2} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                             <ButtonGroup orientation="vertical" variant="contained" color="primary">
-                                <Tooltip title="Dodaj pytanie" placement="right"><Button onClick={() => addSection()}><AddCircleOutlineOutlinedIcon /></Button></Tooltip>
+                                <Tooltip title="Add question" placement="bottom"><Button onClick={() => addSection()}><AddCircleOutlineOutlinedIcon /></Button></Tooltip>
                             </ButtonGroup>
                         </Grid>
                     </Grid>
@@ -192,7 +191,7 @@ export const AddForm = () => {
                             />
                         ))
                 }
-                <Button variant="contained" color="primary" fullWidth type="submit">Zapisz formularz</Button>
+                <Button variant="contained" color="primary" fullWidth type="submit">Save form</Button>
             </form>
             <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="warning" className={classes.alert}>{error}</Alert>

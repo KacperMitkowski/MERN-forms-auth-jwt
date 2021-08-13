@@ -14,7 +14,7 @@ const SingleChoiceAnswer = ({ section, handleSingleOption, index }) => {
         <>
             <Grid item xs={12}>
                 <FormControl component="fieldset">
-                    <FormLabel component="legend">Wybierz jedną opcję</FormLabel>
+                    <FormLabel component="legend">Choose only one option</FormLabel>
                     <RadioGroup aria-label="singleChoice" name="singleChoice" value={selectedValue} onChange={(e) => {
                         setSelectedValue(e.target.value);
                         setOption(e.target.value);
@@ -29,7 +29,7 @@ const SingleChoiceAnswer = ({ section, handleSingleOption, index }) => {
                         }
                     </RadioGroup>
                     {section.singleMultiDetails.otherOption &&
-                        <TextField id="standard-required" label="Inna odpowiedź" value={otherOption} disabled={selectedValue.length > 0} onChange={(e) => {
+                        <TextField id="standard-required" label="Other answer" value={otherOption} disabled={selectedValue.length > 0} onChange={(e) => {
                             setOtherOption(e.target.value);
                             setOption(e.target.value);
                         }}/>

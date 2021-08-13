@@ -7,7 +7,6 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
 const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section = null }) => {
     const classes = useStyles(); 
-    // const [options, setOptions] = useState([{ startIcon: <CheckBoxOutlineBlankIcon />, placeholder: "Opcja 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
     const [options, setOptions] = useState([]);
     const [customOptionVisible, setCustomOptionVisible] = useState(false);
 
@@ -17,7 +16,7 @@ const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, secti
             for (let i = 0; i < section.singleMultiDetails.options.length; i++) {
                 const obj = {
                     startIcon:  <CheckBoxOutlineBlankIcon />,
-                    placeholder: `Opcja ${i + 1}`,
+                    placeholder: `Option ${i + 1}`,
                     deleteIcon: <HighlightOffIcon />,
                     value: section.singleMultiDetails.options[i]
                 }
@@ -27,7 +26,7 @@ const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, secti
             setCustomOptionVisible(section.singleMultiDetails.otherOption);
         }
         else {
-            setOptions([{ startIcon:  <CheckBoxOutlineBlankIcon />, placeholder: "Opcja 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
+            setOptions([{ startIcon:  <CheckBoxOutlineBlankIcon />, placeholder: "Option 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
         }
     }, [section]);
 
@@ -41,7 +40,7 @@ const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, secti
     }
 
     const addRadioOption = (counter) => { 
-        setOptions([...options, { startIcon: <CheckBoxOutlineBlankIcon />, placeholder: `Opcja ${counter}`, deleteIcon: <HighlightOffIcon />, value: "" }]) 
+        setOptions([...options, { startIcon: <CheckBoxOutlineBlankIcon />, placeholder: `Option ${counter}`, deleteIcon: <HighlightOffIcon />, value: "" }]) 
     }
 
     const handleChange = (i, e) => {
@@ -70,7 +69,7 @@ const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, secti
                                     </InputAdornment>
                                 ),
                                 endAdornment: options.length >= 2 && (
-                                    <Tooltip title="Usuń" placement="right">
+                                    <Tooltip title="Delete option" placement="right">
                                         <IconButton className={classes.singleChoiceOptionMargin} onClick={() => deleteOption(index)}>
                                             {element.deleteIcon}
                                         </IconButton>
@@ -84,7 +83,7 @@ const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, secti
             {
                 customOptionVisible &&
                 <TextField
-                    placeholder="Inna odpowiedź..."
+                    placeholder="Other option..."
                     disabled
                     InputProps={{
                         classes: { underline: classes.underline },
@@ -94,7 +93,7 @@ const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, secti
                             </InputAdornment>
                         ),
                         endAdornment: (
-                            <Tooltip title="Usuń" placement="right">
+                            <Tooltip title="Delete option" placement="right">
                                 <IconButton className={classes.singleChoiceOptionMargin} onClick={() => setCustomOptionVisible(false)}>
                                     <HighlightOffIcon />
                                 </IconButton>
@@ -113,7 +112,7 @@ const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, secti
                         <Button variant="contained" color="primary" onClick={() => {
                             setCustomOptionVisible(true);
                             handleOtherOption(true, index);
-                        }}>Dodaj opcję "inne"</Button>
+                        }}>Add option "other"</Button>
                     </>
                 }
             </div>
