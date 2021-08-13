@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Grid, Paper, Snackbar, TextField, Tooltip, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import Section from './Section';
+import Section from '../Section';
 import FormModel from '../../../models/form';
 import SectionModel from '../../../models/section';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,9 +48,9 @@ export const AddForm = () => {
         setSections(newSections);
     }
 
-    const handleSwitchChange = (currentValue, index) => {
+    const handleRequired = (required, index) => {
         let newSections = [...sections];
-        newSections[index].required = !currentValue;
+        newSections[index].required = !required;
         setSections(newSections);
     }
 
@@ -124,7 +124,6 @@ export const AddForm = () => {
             return dispatch({ type: ERROR, data: { error: formResult.error } });
         }
 
-        console.log(form);
         dispatch(createForm(form, history));
     }
 
@@ -146,6 +145,10 @@ export const AddForm = () => {
                         return { ok: false, error: "No option text" };
                     }
                 }
+            }
+
+            if((section.questionType === "singleChoice" || section.questionType === "multipleChoice") && section.singleMultiDetails.options.length === 0) {
+                return { ok: false, error: "No option text" };
             }
         }
         return { ok: true }
@@ -179,7 +182,7 @@ export const AddForm = () => {
                                 index={index}
                                 removeSection={removeSection}
                                 handleChange={handleChange}
-                                handleSwitchChange={handleSwitchChange}
+                                handleRequired={handleRequired}
                                 handleOptions={handleOptions}
                                 handleOtherOption={handleOtherOption}
                                 handleLinearScale={handleLinearScale}

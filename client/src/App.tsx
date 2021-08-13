@@ -10,6 +10,8 @@ import RegisterUser from './components/Auth/RegisterUser';
 import Forms from './components/Forms/Forms';
 import AddForm from './components/Forms/AddForm/AddForm';
 import EditForm from './components/Forms/EditForm/EditForm';
+import AnswerForm from './components/Forms/AnswerForm/AnswerForm';
+import ShowAnswers from './components/Forms/ShowAnswers/ShowAnswers';
 
 const theme = createTheme({
   typography: {
@@ -20,7 +22,7 @@ const theme = createTheme({
   }
 });
 
-const App = () => {
+const App = () => { 
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
@@ -32,6 +34,8 @@ const App = () => {
             <Route path="/register" exact component={RegisterUser} />
             <Route path="/addForm" exact component={AddForm} />
             <Route path="/editForm/:id" exact component={EditForm} />
+            <Route path="/answerForm/:id" exact component={AnswerForm} />
+            <Route path="/showAnswers/:id" exact component={ShowAnswers} />
             <Route path="/unauthorized" exact component={Unauthorized} />
           </Switch>
       </ThemeProvider>

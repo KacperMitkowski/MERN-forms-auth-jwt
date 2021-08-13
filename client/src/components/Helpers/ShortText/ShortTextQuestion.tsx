@@ -1,7 +1,7 @@
 import { Grid, TextField } from '@material-ui/core';
 import React from 'react';
 
-const ShortText = () => {
+const ShortTextQuestion = () => {
     return (
         <Grid item xs={5}>
             <TextField placeholder="Tekst krótkiej odpowiedzi" fullWidth disabled />
@@ -9,4 +9,4 @@ const ShortText = () => {
     )
 }
 
-export default ShortText;
+export default ShortTextQuestion;

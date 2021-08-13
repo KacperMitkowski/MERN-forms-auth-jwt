@@ -1,20 +1,58 @@
 import { FormControl, FormControlLabel, Grid, InputAdornment, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import useStyles from '../Forms/AddForm/styles'; 
+import useStyles from '../../Forms/AddForm/styles';
 
-const LinearScale = ({ handleLinearScale ,index }) => {
+const LinearScaleQuestion = ({ handleLinearScale, index, section = null }) => {
     const classes = useStyles();
     const [min, setMin] = useState(0);
     const [max, setMax] = useState(5);
     const [minEtiquette, setMinEtiquette] = useState('');
     const [maxEtiquette, setMaxEtiquette] = useState('');
 
+    useEffect(() => {
+        console.log(section);
+        if (section) {
+            setMin(section.linearDetails.min);
+            setMinEtiquette(section.linearDetails.minText);
+            setMax(section.linearDetails.max);
+            setMaxEtiquette(section.linearDetails.maxText);
+        }
+    }, [section]);
+
+    useEffect(() => {
+        const details = {
+            min,
+            max,
+            minText: minEtiquette.trim(),
+            maxText: maxEtiquette.trim()
+        }
+        handleLinearScale(details, index);
+    }, [min, minEtiquette, max, maxEtiquette])
+
+    const handleChange = (i, e) => {
+        const name = e.target.name;
+        const value = e.target.value; 
+        if(name === 'min') {
+            setMin(value);
+        }
+        else if(name === 'minText') {
+            setMinEtiquette(value.trim());
+        }
+        else if(name === 'max') {
+            setMax(value);
+        }
+        else if(name === 'maxText') {
+            setMaxEtiquette(value.trim());
+        }
+    }
+
     const getScale = () => {
         const options = [];
         for (let i = min; i <= max; i++) {
             options.push(
                 <FormControlLabel
+                    disabled
                     key={i}
                     control={<Radio color="primary" />}
                     label={i}
@@ -25,23 +63,14 @@ const LinearScale = ({ handleLinearScale ,index }) => {
         return options;
     }
 
-    useEffect(() => {
-        const details = {
-            min,
-            max,
-            minText : minEtiquette.trim(),
-            maxText : maxEtiquette.trim()
-        }
-        handleLinearScale(details, index);
-    }, [min, minEtiquette, max, maxEtiquette])
-
     return (
         <>
             <Grid item xs={12}>
                 <FormControl className={classes.formControl}>
                     <Select
+                        name="min"
                         value={min}
-                        onChange={(event: React.ChangeEvent<{ value: unknown }>) => setMin(event.target.value as number)}
+                        onChange={e => handleChange(index, e)}
                         variant="outlined"
                     >
                         <MenuItem value={0}>0</MenuItem>
@@ -50,8 +79,9 @@ const LinearScale = ({ handleLinearScale ,index }) => {
                 </FormControl>
                 <FormControl className={classes.formControl}>
                     <Select
+                        name="max"
                         value={max}
-                        onChange={(event: React.ChangeEvent<{ value: unknown }>) => setMax(event.target.value as number)}
+                        onChange={e => handleChange(index, e)}
                         variant="outlined"
                     >
                         <MenuItem value={2}>2</MenuItem>
@@ -67,8 +97,10 @@ const LinearScale = ({ handleLinearScale ,index }) => {
                 </FormControl>
                 <div style={{ marginTop: "20px" }}>
                     <TextField
+                        value={minEtiquette}
+                        name="minText"
                         placeholder="Etykieta (opcjonalna)"
-                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setMinEtiquette(event.target.value)}
+                        onChange={e => handleChange(index, e)}
                         InputProps={{
                             classes: { underline: classes.underlineLinear },
                             startAdornment: (
@@ -81,8 +113,10 @@ const LinearScale = ({ handleLinearScale ,index }) => {
                 </div>
                 <div style={{ marginTop: "20px" }}>
                     <TextField
+                        value={maxEtiquette}
+                        name="maxText"
                         placeholder="Etykieta (opcjonalna)"
-                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setMaxEtiquette(event.target.value)}
+                        onChange={e => handleChange(index, e)}
                         InputProps={{
                             classes: { underline: classes.underlineLinear },
                             startAdornment: (
@@ -107,4 +141,4 @@ const LinearScale = ({ handleLinearScale ,index }) => {
     )
 }
 
-export default LinearScale;
+export default LinearScaleQuestion;

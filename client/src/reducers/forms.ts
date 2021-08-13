@@ -15,6 +15,12 @@ export default (state = { isLoading: true, forms: [] }, action: any) => {
             return { ...state, form: action.payload.form };
         case CREATE:
             return { ...state, forms: [...state.forms, action.payload] };
+        case UPDATE_SUCCESSFUL:
+            return { ...state, updateSuccessful: action?.payload };
+        case DELETE:
+            return { ...state, movies: state.forms.filter((form) => form._id !== action.payload) };
+        case DELETE_SUCCESSFUL:
+            return { ...state, deleteSuccessful: action?.payload };
         default:
             return state;
     }

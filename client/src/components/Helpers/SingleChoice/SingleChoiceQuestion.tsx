@@ -1,23 +1,50 @@
 import { Button, IconButton, InputAdornment, TextField, Tooltip, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import React, { useEffect, useState } from 'react';
-import useStyles from '../Forms/AddForm/styles';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import React, { useState } from 'react';
+import useStyles from '../../Forms/AddForm/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import { useEffect } from 'react';
 
-const MultipleChoice = ({ handleOptions, handleOtherOption, index }) => {
+
+const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section = null }) => {
     const classes = useStyles();
-    const [options, setOptions] = useState([{ startIcon: <CheckBoxOutlineBlankIcon />, placeholder: "Opcja 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
+    const [options, setOptions] = useState([]);
     const [customOptionVisible, setCustomOptionVisible] = useState(false);
+
+    useEffect(() => {
+        if (section) {
+            console.log(section);
+            const sectionOptions = [];
+            for (let i = 0; i < section.singleMultiDetails.options.length; i++) {
+                const obj = {
+                    startIcon: <RadioButtonUncheckedIcon />,
+                    placeholder: `Opcja ${i + 1}`,
+                    deleteIcon: <HighlightOffIcon />,
+                    value: section.singleMultiDetails.options[i]
+                }
+                sectionOptions.push(obj);
+            }
+            setOptions(sectionOptions);
+            setCustomOptionVisible(section.singleMultiDetails.otherOption);
+        }
+        else {
+            alert("TEST");
+            setOptions([{ startIcon: <RadioButtonUncheckedIcon />, placeholder: "Opcja 1", deleteIcon: <HighlightOffIcon />, value: "" }]);
+        }
+    }, [section]);
 
     const deleteOption = (i) => {
         let newOptions = [...options];
         newOptions.splice(i, 1);
         setOptions(newOptions);
+
+        const values = newOptions.map(option => option.value.trim());
+        handleOptions(values, index);
     }
 
-    const addRadioOption = (counter) => { 
-        setOptions([...options, { startIcon: <CheckBoxOutlineBlankIcon />, placeholder: `Opcja ${counter}`, deleteIcon: <HighlightOffIcon />, value: "" }]) 
+    const addRadioOption = (counter) => {
+        setOptions([...options, { startIcon: <RadioButtonUncheckedIcon />, placeholder: `Opcja ${counter}`, deleteIcon: <HighlightOffIcon />, value: "" }]);
     }
 
     const handleChange = (i, e) => {
@@ -28,11 +55,6 @@ const MultipleChoice = ({ handleOptions, handleOtherOption, index }) => {
         const values = newOptions.map(option => option.value.trim());
         handleOptions(values, index);
     }
-
-    useEffect(() => {
-        const values = options.map(option => option.value.trim());
-        handleOptions(values, index);
-    }, [options]);
 
     return (
         <Grid item xs={10}>
@@ -71,7 +93,7 @@ const MultipleChoice = ({ handleOptions, handleOtherOption, index }) => {
                         classes: { underline: classes.underline },
                         startAdornment: (
                             <InputAdornment position="start">
-                                <CheckBoxOutlineBlankIcon />
+                                <RadioButtonUncheckedIcon />
                             </InputAdornment>
                         ),
                         endAdornment: (
@@ -102,5 +124,4 @@ const MultipleChoice = ({ handleOptions, handleOtherOption, index }) => {
     )
 }
 
-
-export default MultipleChoice;
+export default SingleChoiceQuestion;

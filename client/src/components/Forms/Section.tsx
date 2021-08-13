@@ -1,22 +1,28 @@
 import { Button, ButtonGroup, Divider, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Paper, Select, Switch, TextField, Tooltip } from '@material-ui/core';
 import React, { useState } from 'react';
-import { QuestionHelper } from '../../../constants/questionTypes';
-import useStyles from './styles';
+import { QuestionHelper } from '../../constants/questionTypes';
+import useStyles from './AddForm/styles';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
-import LinearScale from '../../Helpers/LinearScale';
-import MultipleChoice from '../../Helpers/MultipleChoice';
-import SingleChoice from '../../Helpers/SingleChoice';
-import LongText from '../../Helpers/LongText';
-import ShortText from '../../Helpers/ShortText';
+import LinearScaleQuestion from '../Helpers/LinearScale/LinearScaleQuestion';
+import MultipleChoiceQuestion from '../Helpers/MultipleChoice/MultipleChoiceQuestion';
+import SingleChoiceQuestion from '../Helpers/SingleChoice/SingleChoiceQuestion';
+import LongTextQuestion from '../Helpers/LongText/LongTextQuestion';
+import ShortTextQuestion from '../Helpers/ShortText/ShortTextQuestion';
+import { useEffect } from 'react';
 
-const Section = ({ section, index, removeSection, handleChange, handleSwitchChange, handleOptions, handleOtherOption, handleLinearScale, sectionNumber, handleDrag, handleDrop }) => {
+const Section = ({ section, index, removeSection, handleChange, handleRequired, handleOptions, handleOtherOption, handleLinearScale, sectionNumber, handleDrag, handleDrop }) => {
     const classes = useStyles();
+    const [required, setRequired] = useState(false);
+
+    useEffect(() => {
+        setRequired(section.required);
+    }, [section])
 
     return (
-        <Paper
+        <Paper 
             className={classes.paper}
             elevation={6}
             style={{ marginTop: "10px" }}
@@ -68,18 +74,18 @@ const Section = ({ section, index, removeSection, handleChange, handleSwitchChan
 
                 {
                     section.questionType === 'shortText' ?
-                        <ShortText />
+                        <ShortTextQuestion />
                         : (
                             section.questionType === 'longText' ?
-                                <LongText />
+                                <LongTextQuestion />
                                 : (
                                     section.questionType === 'singleChoice' ?
-                                        <SingleChoice handleOptions={handleOptions} handleOtherOption={handleOtherOption} index={index} /> 
+                                        <SingleChoiceQuestion handleOptions={handleOptions} handleOtherOption={handleOtherOption} index={index} section={section} /> 
                                         : (
                                             section.questionType === 'multipleChoice' ? 
-                                                <MultipleChoice handleOptions={handleOptions} handleOtherOption={handleOtherOption} index={index} />
+                                                <MultipleChoiceQuestion handleOptions={handleOptions} handleOtherOption={handleOtherOption} index={index} section={section} />
                                                 :
-                                                <LinearScale handleLinearScale={handleLinearScale} index={index} />
+                                                <LinearScaleQuestion handleLinearScale={handleLinearScale} index={index} section={section} />
                                         )
                                 )
                         )
@@ -92,8 +98,11 @@ const Section = ({ section, index, removeSection, handleChange, handleSwitchChan
                     <FormControl component="fieldset">
                         <FormGroup aria-label="position" row>
                             <FormControlLabel
-                                value={section.required}
-                                onChange={() => handleSwitchChange(section.required, index)}
+                                checked={required}
+                                onChange={() => {
+                                    setRequired(!required);
+                                    handleRequired(section.required, index);
+                                }}
                                 control={<Switch color="primary" />}
                                 label="Wymagane"
                                 labelPlacement="start"

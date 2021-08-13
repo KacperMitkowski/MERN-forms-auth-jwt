@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, CircularProgress, Container, Grid, Paper, Snackbar, TextField, Tooltip, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import Section from './Section';
+import Section from '../Section';
 import FormModel from '../../../models/form';
 import SectionModel from '../../../models/section';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { getForm, updateForm } from '../../../actions/forms';
 import SingleMultiDetails from '../../../models/singleMultiDetails';
 import LinearDetails from '../../../models/linearDetails';
-
+ 
 export const EditForm = () => {
     const { id } = useParams<any>();
     const classes = useStyles();
@@ -27,7 +27,6 @@ export const EditForm = () => {
     const [formDescription, setFormDescription] = useState('');
     const profile = localStorage.getItem('profile')!;
     const [user, setUser] = useState(JSON.parse(profile));
-    // const [sections, setSections] = useState([{ questionText: "", questionType: "shortText", id: `Section-${sectionsNumber}`, order: sectionsNumber, required: false, options: [], otherOption: false, linearScaleDetails: Object }]);
     const [sections, setSections] = useState([]);
 
     useEffect(() => {
@@ -63,15 +62,14 @@ export const EditForm = () => {
         setSections(newSections);
     }
 
-    const handleSwitchChange = (currentValue, index) => {
+    const handleRequired = (required, index) => {
         let newSections = [...sections];
-        newSections[index].required = !currentValue;
+        newSections[index].required = !required;
         setSections(newSections);
     }
 
     const handleOptions = (options, index) => {
         let newSections = [...sections];
-        console.log(form);
         newSections[index].singleMultiDetails.options = options;
         setSections(newSections);
     }
@@ -82,14 +80,13 @@ export const EditForm = () => {
         setSections(newSections);
     }
 
-    const handleLinearScale = (details, index) => {
+    const handleLinearScale = (details, index) => { 
         let newSections = [...sections];
         newSections[index].linearDetails = details;
         setSections(newSections);
     }
 
     const addSection = () => {
-        // setSections([...sections, { questionText: "", questionType: "shortText", id: `Section-${sectionsNumber + 1}`, order: sectionsNumber + 1, required: false, options: [], otherOption: false, linearScaleDetails: Object }])
         setSections([...sections, new SectionModel(`Section-${sectionsNumber + 1}`, sectionsNumber + 1, false, "", "shortText", new SingleMultiDetails(), new LinearDetails())]);
         setSectionsNumber(sectionsNumber + 1);
     }
@@ -145,7 +142,6 @@ export const EditForm = () => {
         dispatch(updateForm(form, history));
     }
 
-
     const validateForm = (form: FormModel) => {
         if (form.title.trim().length === 0) {
             return { ok: false, error: "No form title" };
@@ -165,9 +161,13 @@ export const EditForm = () => {
                     }
                 }
             }
+            if((section.questionType === "singleChoice" || section.questionType === "multipleChoice") && section.singleMultiDetails.options.length === 0) {
+                return { ok: false, error: "No option text" };
+            }
         }
         return { ok: true }
     }
+
 
     if (isLoading) {
         return (
@@ -206,7 +206,7 @@ export const EditForm = () => {
                                 index={index}
                                 removeSection={removeSection}
                                 handleChange={handleChange}
-                                handleSwitchChange={handleSwitchChange}
+                                handleRequired={handleRequired}
                                 handleOptions={handleOptions}
                                 handleOtherOption={handleOtherOption}
                                 handleLinearScale={handleLinearScale}

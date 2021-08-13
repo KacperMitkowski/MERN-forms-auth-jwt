@@ -1,5 +1,5 @@
+import mongoose from 'mongoose';
 import Form from '../models/form.js';
-import Section from '../models/section.js';
 
 export const getForms = async (req, res) => {
 
@@ -27,13 +27,6 @@ export const getForm = async (req, res) => {
 export const createForm = async (req, res) => {
     try {
         const form = req.body;
-        console.log(form);
-
-        for(let section of form.sections) {
-            console.log(section.linearDetails);
-            console.log(section.singleMultiDetails);
-        }
-        // const sections = [];
 
         if (form?.title?.trim()?.length === 0) return res.status(200).json({ error: "No title given" });
         if (form?.description?.trim()?.length === 0) return res.status(200).json({ error: "No description given" });
@@ -45,7 +38,6 @@ export const createForm = async (req, res) => {
             sections: form.sections
         });
         await newForm.save();
-
         res.status(201).json(newForm);
 
     } catch (err) {
@@ -59,10 +51,26 @@ export const updateForm = async (req, res) => {
     const updatedForm = req.body;
 
     try {
-        await Form.findByIdAndUpdate(id, updatedForm, { new: true });
+        await Form.findByIdAndUpdate(id, updatedForm);
         res.status(201).json(updatedForm);
     }
     catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+}
+
+export const deleteForm = async (req, res) => {
+    const { id } = req.params;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No form with id: ${id}`);
+        
+        console.log(id);
+        await Form.findByIdAndRemove(id);
+        
+        res.status(201).json({ message: "Movie deleted successfully." });
+    }
+    catch (error) {
+        console.log(error.message);
         res.status(409).json({ message: error.message });
     }
 }
