@@ -121,7 +121,7 @@ const ShowAnswers = () => {
                                     <Table className={classes.table} size="small" aria-label="a dense table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell>Pytanie</TableCell>
+                                                <TableCell>Question</TableCell>
                                                 <TableCell align="right">Question type</TableCell>
                                                 <TableCell align="right">Required answer</TableCell>
                                                 <TableCell align="right">Answer</TableCell>

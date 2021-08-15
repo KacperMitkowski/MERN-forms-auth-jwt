@@ -86,7 +86,7 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
             {
                 customOptionVisible &&
                 <TextField
-                    placeholder="Inna odpowiedź..."
+                    placeholder="Other option..."
                     disabled
                     InputProps={{
                         classes: { underline: classes.underline },
@@ -111,7 +111,7 @@ const SingleChoiceQuestion = ({ handleOptions, handleOtherOption, index, section
                 {
                     !customOptionVisible &&
                     <>
-                        <Typography>lub</Typography>
+                        <Typography>or</Typography>
                         <Button variant="contained" color="primary" onClick={() => {
                             setCustomOptionVisible(true);
                             handleOtherOption(true, index);

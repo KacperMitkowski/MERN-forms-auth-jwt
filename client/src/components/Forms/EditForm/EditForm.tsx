@@ -215,7 +215,7 @@ export const EditForm = () => {
                             />
                         ))
                 }
-                <Button variant="contained" color="primary" fullWidth type="submit">Zapisz formularz</Button>
+                <Button variant="contained" color="primary" fullWidth type="submit">Save form</Button>
             </form>
             <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="warning" className={classes.alert}>{error}</Alert>

@@ -40,7 +40,7 @@ const LinearScaleAnswer = ({ section, handleLinearOption, index }) => {
             </Grid>
             {value >= 0 &&
                 <Grid item xs={12} style={{ textAlign: "center" }}>
-                    <Button variant="contained" color="primary" onClick={() => setValue(-1)}>Odznacz</Button>
+                    <Button variant="contained" color="primary" onClick={() => setValue(-1)}>Uncheck</Button>
                 </Grid>
             }
         </>

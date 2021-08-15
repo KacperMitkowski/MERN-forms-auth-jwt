@@ -104,11 +104,11 @@ const MultipleChoiceQuestion = ({ handleOptions, handleOtherOption, index, secti
             }
 
             <div className={classes.singleChoiceButtonsContainer}>
-                <Button variant="contained" color="primary" onClick={() => addRadioOption(options.length + 1)}>Dodaj opcję</Button>
+                <Button variant="contained" color="primary" onClick={() => addRadioOption(options.length + 1)}>Add option</Button>
                 {
                     !customOptionVisible &&
                     <>
-                        <Typography>lub</Typography>
+                        <Typography>or</Typography>
                         <Button variant="contained" color="primary" onClick={() => {
                             setCustomOptionVisible(true);
                             handleOtherOption(true, index);

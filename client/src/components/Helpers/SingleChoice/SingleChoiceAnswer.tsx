@@ -41,7 +41,7 @@ const SingleChoiceAnswer = ({ section, handleSingleOption, index }) => {
                     <Button variant="contained" color="primary" onClick={() => {
                         setSelectedValue('');
                         setOption('');
-                    }}>Odznacz</Button>
+                    }}>Uncheck</Button>
                 </Grid>
             }
         </>
